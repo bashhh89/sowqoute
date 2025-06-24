@@ -1,26 +1,292 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-plus-jakarta-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* Social Garden Brand Colors */
+  --color-sg-deep-green: #004D40;
+  --color-sg-teal: #B2DFDB;
+  --color-sg-light-teal: #E0F2F1;
+  --color-sg-accent-green: #A5D6A7;
+  --color-sg-charcoal: #212121;
+  --color-sg-medium-grey: #616161;
+  --color-sg-light-grey: #BDBDBD;
+  --color-sg-off-white: #F5F5F5;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.625rem;
+  
+  /* Social Garden Light Theme */
+  --background: #FFFFFF;
+  --foreground: #212121;
+  --card: #FFFFFF;
+  --card-foreground: #212121;
+  --popover: #FFFFFF;
+  --popover-foreground: #212121;
+  --primary: #004D40;
+  --primary-foreground: #FFFFFF;
+  --secondary: #E0F2F1;
+  --secondary-foreground: #004D40;
+  --muted: #F5F5F5;
+  --muted-foreground: #616161;
+  --accent: #B2DFDB;
+  --accent-foreground: #004D40;
+  --destructive: #d32f2f;
+  --border: #BDBDBD;
+  --input: #F5F5F5;
+  --ring: #004D40;
+  
+  /* Chart colors using Social Garden palette */
+  --chart-1: #004D40;
+  --chart-2: #B2DFDB;
+  --chart-3: #A5D6A7;
+  --chart-4: #E0F2F1;
+  --chart-5: #616161;
+  
+  /* Sidebar using Social Garden colors */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #212121;
+  --sidebar-primary: #004D40;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E0F2F1;
+  --sidebar-accent-foreground: #004D40;
+  --sidebar-border: #BDBDBD;
+  --sidebar-ring: #004D40;
+}
+
+.dark {
+  /* Social Garden Dark Theme */
+  --background: #212121;
+  --foreground: #FFFFFF;
+  --card: #2C2C2C;
+  --card-foreground: #FFFFFF;
+  --popover: #2C2C2C;
+  --popover-foreground: #FFFFFF;
+  --primary: #B2DFDB;
+  --primary-foreground: #004D40;
+  --secondary: #004D40;
+  --secondary-foreground: #FFFFFF;
+  --muted: #3C3C3C;
+  --muted-foreground: #BDBDBD;
+  --accent: #A5D6A7;
+  --accent-foreground: #212121;
+  --destructive: #f44336;
+  --border: #616161;
+  --input: #3C3C3C;
+  --ring: #B2DFDB;
+  
+  /* Chart colors for dark theme */
+  --chart-1: #B2DFDB;
+  --chart-2: #A5D6A7;
+  --chart-3: #E0F2F1;
+  --chart-4: #004D40;
+  --chart-5: #BDBDBD;
+  
+  /* Sidebar for dark theme */
+  --sidebar: #2C2C2C;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #B2DFDB;
+  --sidebar-primary-foreground: #004D40;
+  --sidebar-accent: #004D40;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #616161;
+  --sidebar-ring: #B2DFDB;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', sans-serif; /* Apply brand font */
+  }
+  
+  /* Social Garden Typography Scale */
+  h1 {
+    @apply text-4xl font-extrabold text-sg-deep-green leading-tight; /* H1 specific styles */
+  }
+  
+  h2, h3, h4, h5, h6 {
+    @apply text-2xl font-bold text-sg-charcoal leading-snug; /* Default for H2-H6, will refine H2/H3 below */
+  }
+  
+  h2 {
+    @apply text-2xl font-bold text-sg-charcoal leading-snug; /* H2 specific styles */
+  }
+  
+  h3 {
+    @apply text-xl font-bold text-sg-charcoal leading-normal; /* H3 specific styles */
+  }
+  
+  .body-text {
+    @apply text-base font-normal text-foreground leading-relaxed;
+  }
+  
+  .ui-label {
+    @apply text-sm font-medium text-sg-medium-grey leading-normal;
+  }
+  
+  .caption {
+    @apply text-xs font-normal text-sg-medium-grey leading-normal;
+  }
+  
+  /* Custom Social Garden utility classes */
+  .text-sg-deep-green { color: var(--color-sg-deep-green); }
+  .text-sg-teal { color: var(--color-sg-teal); }
+  .text-sg-light-teal { color: var(--color-sg-light-teal); }
+  .text-sg-accent-green { color: var(--color-sg-accent-green); }
+  .text-sg-charcoal { color: var(--color-sg-charcoal); }
+  .text-sg-medium-grey { color: var(--color-sg-medium-grey); }
+  .text-sg-light-grey { color: var(--color-sg-light-grey); }
+  .text-sg-off-white { color: var(--color-sg-off-white); }
+  
+  .bg-sg-deep-green { background-color: var(--color-sg-deep-green); }
+  .bg-sg-teal { background-color: var(--color-sg-teal); }
+  .bg-sg-light-teal { background-color: var(--color-sg-light-teal); }
+  .bg-sg-accent-green { background-color: var(--color-sg-accent-green); }
+  .bg-sg-charcoal { background-color: var(--color-sg-charcoal); }
+  .bg-sg-medium-grey { background-color: var(--color-sg-medium-grey); }
+  .bg-sg-light-grey { background-color: var(--color-sg-light-grey); }
+  .bg-sg-off-white { background-color: var(--color-sg-off-white); }
+  
+  .border-sg-deep-green { border-color: var(--color-sg-deep-green); }
+  .border-sg-teal { border-color: var(--color-sg-teal); }
+  .border-sg-light-teal { border-color: var(--color-sg-light-teal); }
+  .border-sg-accent-green { border-color: var(--color-sg-accent-green); }
+  .border-sg-charcoal { border-color: var(--color-sg-charcoal); }
+  .border-sg-medium-grey { border-color: var(--color-sg-medium-grey); }
+  .border-sg-light-grey { border-color: var(--color-sg-light-grey); }
+  .border-sg-off-white { border-color: var(--color-sg-off-white); }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.bg-white { background-color: var(--background) !important; } /* Should be actual white */
+.text-gray-900, .text-black, .text-gray-700, .text-gray-600 { color: var(--foreground) !important; } /* Use foreground for text */
+
+.force-black-text {
+  color: var(--color-sg-charcoal) !important; /* Use Charcoal */
+  background: var(--background) !important; /* Use background */
+  font-size: 1.1rem !important;
+  caret-color: var(--color-sg-charcoal) !important; /* Use Charcoal */
+}
+.force-black-text::placeholder {
+  color: var(--color-sg-medium-grey) !important; /* Use Medium Grey for placeholder */
+  opacity: 1 !important;
+}
+
+.card {
+  background: var(--card); /* Use card background */
+  border-radius: var(--radius-lg); /* Use radius variable */
+  box-shadow: 0 2px 8px rgba(44,62,80,0.04); /* Keep shadow as is, it's a subtle effect */
+  border: 1px solid var(--border); /* Use border color */
+  padding: 2rem;
+}
+
+.text-secondary {
+  color: var(--secondary-foreground); /* Use secondary foreground */
+}
+
+.divider {
+  border-bottom: 1px solid var(--border); /* Use border color */
+}
+
+.button-primary {
+  background: var(--primary); /* Use primary background */
+  color: var(--primary-foreground); /* Use primary foreground */
+  border-radius: var(--radius-md); /* Use radius variable */
+  padding: 0.75rem 1.5rem;
+  font-weight: 700; /* Brand guidelines specify Bold (700) for buttons */
+  border: none;
+}
+
+.button-secondary {
+  background: var(--secondary); /* Use secondary background */
+  color: var(--secondary-foreground); /* Use secondary foreground */
+  border-radius: var(--radius-md); /* Use radius variable */
+  padding: 0.75rem 1.5rem;
+  font-weight: 700; /* Brand guidelines specify Bold (700) for buttons */
+  border: none;
+}
+
+.accent {
+  color: var(--accent-foreground); /* Use accent foreground */
+}
+
+.border-accent {
+  border-color: var(--accent); /* Use accent color for border */
+}
+
+.bg-accent {
+  background: var(--accent); /* Use accent background */
+  color: var(--accent-foreground); /* Use accent foreground */
+}
+
+.research-markdown, .research-markdown p, .research-markdown li, .research-markdown span, .research-markdown div {
+  color: var(--foreground) !important; /* Use foreground for text */
+}
+.research-markdown h1, .research-markdown h2, .research-markdown h3, .research-markdown h4, .research-markdown strong, .research-markdown b {
+  color: var(--primary) !important; /* Use primary color for headings/strong */
+}
+
+.research-markdown h1, .research-markdown h2, .research-markdown h3, .research-markdown h4 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+.research-markdown p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+.research-markdown ul, .research-markdown ol {
+  margin-bottom: 1.25rem;
+  margin-top: 0.5rem;
+  padding-left: 2rem;
+}
+.research-markdown li {
+  margin-bottom: 0.5rem;
+  list-style-type: disc;
+  margin-left: 1rem;
+}
+.research-markdown strong, .research-markdown b {
+  font-weight: 600;
 }
